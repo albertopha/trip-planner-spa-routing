@@ -45,7 +45,14 @@ if (location.hash) {
     itineraryData.restaurants.forEach(restaurant => buildAttractionAssets("restaurants", restaurant));
     itineraryData.activities.forEach(activity => buildAttractionAssets("activities", activity));
   })
-}
+};
+
+//save button 
+const saveButton = document.getElementById('save');
+saveButton.addEventListener('click', (e) => {
+  api.fetchPostSave(state.selectedAttractions)
+})
+
 const makeOption = (attraction, selector) => {
   const option = new Option(attraction.name, attraction.id); // makes a new option tag
   const select = document.getElementById(selector);

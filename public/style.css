@@ -129,3 +129,12 @@ select {
   font-size: 13px;
   color: #333;
 }
+
+#save {
+  height: 40px;
+  width: 100%;
+  font-size: 12px;
+  background: #5f9bc0;
+  border: 0;
+  color: #fff;
+}

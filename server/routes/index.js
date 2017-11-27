@@ -21,7 +21,6 @@ router.get("/", (req, res, next) => {
 });
 
 router.get('/itineraries/:itinerary_id', (req, res, next) => {
- // console.log(req.params.itinerary_id);
   let id = req.params.itinerary_id;
   itineraries.findById(id, {
     include: [{all: true, nested: true}]
@@ -31,7 +30,11 @@ router.get('/itineraries/:itinerary_id', (req, res, next) => {
 });
 
 router.post("/itineraries", (req, res, next) => {
-  res.json(req.body);
+  req.body.forEach()
+  itineraries.create({})
+  .then(initernary => {
+    
+  })
 })
 
 module.exports = router;
