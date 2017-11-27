@@ -21,13 +21,17 @@ router.get("/", (req, res, next) => {
 });
 
 router.get('/itineraries/:itinerary_id', (req, res, next) => {
+ // console.log(req.params.itinerary_id);
   let id = req.params.itinerary_id;
-  console.log(id);
   itineraries.findById(id, {
     include: [{all: true, nested: true}]
   })
   .then(itinerary => res.json(itinerary))
   .catch(next);
 });
+
+router.post("/itineraries", (req, res, next) => {
+  res.json(req.body);
+})
 
 module.exports = router;

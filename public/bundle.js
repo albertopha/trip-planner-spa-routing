@@ -551,7 +551,7 @@ const state = {
   * Instantiate the Map
   */
 
-mapboxgl.accessToken = "YOUR API TOKEN HERE";
+mapboxgl.accessToken = "pk.eyJ1IjoiYW1hbmRhMTEyMzU4IiwiYSI6ImNqYTl0MDlkczBscXgzMm83Z3Rtb2p2dnoifQ.Haiov-Kx6pOYih0czIwhwA";
 
 const fullstackCoords = [-74.009, 40.705]; // NY
 // const fullstackCoords = [-87.6320523, 41.8881084] // CHI
@@ -575,6 +575,13 @@ api.fetchAttractions().then(attractions => {
   activities.forEach(activity => makeOption(activity, "activities-choices"));
 });
 
+if (location.hash) {
+  api.fetchItinerary(location.hash.slice(1)).then(itineraryData => {
+    itineraryData.hotels.forEach(hotel => buildAttractionAssets("hotels", hotel));
+    itineraryData.restaurants.forEach(restaurant => buildAttractionAssets("restaurants", restaurant));
+    itineraryData.activities.forEach(activity => buildAttractionAssets("activities", activity));
+  })
+}
 const makeOption = (attraction, selector) => {
   const option = new Option(attraction.name, attraction.id); // makes a new option tag
   const select = document.getElementById(selector);
@@ -690,8 +697,13 @@ const fetchAttractions = () =>
     .then(result => result.json())
     .catch(err => console.error(err));
 
+const fetchItinerary = (hashId) =>
+  fetch("/api/itineraries/" + hashId)
+  .then(result => result.json())
+  .catch(err => console.error(err));
 module.exports = {
-  fetchAttractions
+  fetchAttractions,
+  fetchItinerary
 };
 
 
